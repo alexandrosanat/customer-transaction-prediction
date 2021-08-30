@@ -8,8 +8,8 @@ from math import ceil
 def get_data():
 
     # Load data
-    train_data = pd.read_csv("./data/train.csv")
-    test_data = pd.read_csv("./data/test.csv")
+    train_data = pd.read_csv("./data/processed_train.csv")
+    test_data = pd.read_csv("./data/processed_test.csv")
 
     # Split features and labels
     # Training data
