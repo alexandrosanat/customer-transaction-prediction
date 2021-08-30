@@ -22,3 +22,28 @@ def get_predictions(loader, model, device):
     model.train()
 
     return saved_predictions, true_labels
+
+
+def get_submission(model, loader, test_ids, device):
+    # Model evaluation mode
+    model.eval()
+    # Store all predictions in list
+    all_predictions = list()
+
+    # No compute is required here
+    with torch.no_grad():
+        for x in loader:
+            x = x[0].to(device)
+            score = model(x)
+            prediction = score.float()
+            all_predictions += prediction.tolist()
+
+    # Switch to train mode
+    model.train()
+
+    df = pd.DataFrame({
+        "ID_code": test_ids.values,
+        "target": np.array(all_predictions)
+    })
+
+    df.to_csv("./data/submission.csv", index=False)

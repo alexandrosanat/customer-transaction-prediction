@@ -29,6 +29,6 @@ def get_data():
     test_ds = TensorDataset(X_tensor_test)
 
     # Split data for training
-    train_ds, val_ds = random_split(train_ds, [int(0.8*len(train_ds)), ceil(0.2*len(train_ds))])
+    train_ds, val_ds = random_split(train_ds, [int(0.99*len(train_ds)), ceil(0.01*len(train_ds))])
 
     return train_ds, val_ds, test_ds, test_ids

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from utils import get_predictions
+from utils import get_predictions, get_submission
 from dataset import get_data
 from torch.utils.data import DataLoader
 from sklearn.metrics import roc_auc_score
@@ -78,7 +78,7 @@ test_loader = DataLoader(test_ds, batch_size=1024)
 start = time.time()
 plot_loss = dict()  # Keep track of loss
 # Loop through all epochs
-for epoch in range(15):
+for epoch in range(35):
 
     # Once per epoch evaluate the model
     probabilities, true_labels = get_predictions(val_loader, model, device=DEVICE)
@@ -112,3 +112,6 @@ for epoch in range(15):
         optimizer.step()
 
 print(f"{round(time.time() - start, 2)} seconds")
+
+# Export data for submission
+get_submission(model, test_loader, test_ids, DEVICE)
